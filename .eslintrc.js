@@ -5,7 +5,7 @@ module.exports = {
         es6: true,
         node: true
     },
-    extends: 'eslint:recommended',
+    extends: 'airbnb',
     parserOptions: {
         sourceType: 'module',
     },
@@ -17,8 +17,5 @@ module.exports = {
         semi: ['error', 'always'],
         'no-unused-vars': ['warn'],
         'no-console': 0
-    },
-    extends: [
-        "prettier"
-    ]
+    }
 }

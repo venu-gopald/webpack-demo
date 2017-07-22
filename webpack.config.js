@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 var config = {
-  entry: './app/index.js',
+  entry: path.join(__dirname, 'app/index.js'),
   output: {
     path: __dirname + '/dist', // `dist` is the destination
     filename: 'bundle.js'
