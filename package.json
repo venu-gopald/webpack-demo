@@ -5,13 +5,22 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack-dev-server --env production",
-    "start": "webpack-dev-server --env development"
+    "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "lint:js": "eslint app/ webpack.*.js --cache",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-config-prettier": "^2.3.0",
     "html-webpack-plugin": "^2.29.0",
+    "husky": "^0.14.3",
+    "nodemon": "^1.11.0",
+    "prettier": "^1.5.3",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1"
   },
