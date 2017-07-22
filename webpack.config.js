@@ -1,63 +1,52 @@
-const path = require('path');
-const HtmlWebpackplugin = require('html-webpack-plugin');
-const PATHS = {
-    app: path.join(__dirname, 'app'),
-    dist: path.join(__dirname, 'dist')
-}
-const productionConfig = () => commonConfig;
-const developmentConfig = () => {
-    const config = {
-        devServer: {
-            //Enable history fallback API
-            historyApiFallback: true,
-            // Display only errros to reduce the amount of output
-                stats: 'errors-only',
-            // parse host and env from env to allow customization
-            host: process.env.host, //Defaults to `localhost`
-            port: process.env.port, //Defatulst to 8080
-            overlay: {
-                errors: true,
-                warnings: true
-            }
+'use strict';
+var webpack = require('webpack');
+var path = require('path');
+
+var config = {
+  entry: './app/index.js',
+  output: {
+    path: __dirname + '/dist', // `dist` is the destination
+    filename: 'bundle.js'
+   // publicPath: "/assets",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/, //Check for all js files
+        loader: 'babel-loader',
+        query: {
+          presets: [ "babel-preset-es2015" ].map(require.resolve)
         }
-    }
-    module: {
-        rules: [
-            {
-                test:/\.js$/,
-                enforce: 'pre',
-                loader: 'eslint-loader',
-                options: {
-                    emitWarning: true
-                }
-            }
+      },
+      {
+        test: /\.(css)$/, //Check for sass or scss file names
+        use: [
+          'style-loader',
+          'css-loader'
         ]
-    }
-    return Object.assign(
-        {},
-        commonConfig,
-        config
-    )
-}
-
-module.exports = {
-    entry: {
-        app: PATHS.app
-    },
-
-    output: {
-        path: PATHS.dist,
-        filename: 'bundle.js',
-    },
-
-    plugins: [
-        new HtmlWebpackplugin   ({
-            title: "Webpack Demo"
-        })
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader"  //JSON loader
+      }
     ]
+  },
+  //To run development server
+  devServer: {
+    contentBase: __dirname + '/dist',
+  },
+
+  devtool: "eval-source-map" // Default development sourcemap
+};
+
+// Check if build is running in production mode, then change the sourcemap type
+if (process.env.NODE_ENV === "production") {
+  config.devtool = "source-map";
+
+  // Can do more here
+  // JSUglify plugin
+  // Offline plugin
+  // Bundle styles seperatly using plugins etc,
 }
 
-//  if (env === 'production'){
-//         return productionConfig();
-//     }
-//     return developmentConfig();
+module.exports = config;
