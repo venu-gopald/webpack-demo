@@ -1,52 +1,61 @@
-'use strict';
+
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var DashboardPlugin = require('webpack-dashboard/plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
+var HTMLWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
   entry: path.join(__dirname, 'app/index.js'),
   output: {
     path: __dirname + '/dist', // `dist` is the destination
-    filename: 'bundle.js'
-   // publicPath: "/assets",
+    filename: '[name].[hash].js',
   },
   module: {
     rules: [
       {
         test: /\.js$/, //Check for all js files
-        loader: 'babel-loader',
-        query: {
-          presets: [ "babel-preset-es2015" ].map(require.resolve)
-        }
+        use: 'babel-loader',
+        exclude: /(node_modules)/,
       },
       {
         test: /\.(css)$/, //Check for sass or scss file names
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+        ],
       },
-      {
-        test: /\.json$/,
-        loader: "json-loader"  //JSON loader
-      }
-    ]
+    ],
   },
+  plugins: [
+    new CleanWebpackPlugin(['dist']),
+    new HTMLWebpackPlugin({
+      title: 'Caching',
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor-[hash].min.js',
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime',
+    }),
+    new ExtractTextPlugin('styles.css'),
+    new webpack.IgnorePlugin(/^\.\/locale$/,/moment$/),
+    //compile time plugins
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV' :'"development"',
+    }),
+    //webpack-dev-server enhancement plugins
+    new DashboardPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
   //To run development server
   devServer: {
     contentBase: __dirname + '/dist',
   },
 
-  devtool: "eval-source-map" // Default development sourcemap
+  devtool: 'eval-source-map', // Default development sourcemap
 };
-
-// Check if build is running in production mode, then change the sourcemap type
-if (process.env.NODE_ENV === "production") {
-  config.devtool = "source-map";
-
-  // Can do more here
-  // JSUglify plugin
-  // Offline plugin
-  // Bundle styles seperatly using plugins etc,
-}
 
 module.exports = config;

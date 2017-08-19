@@ -5,15 +5,20 @@ module.exports = {
         es6: true,
         node: true
     },
-    extends: 'airbnb',
     parserOptions: {
-        sourceType: 'module',
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
     },
     rules:{
         'comma-dangle': ['error', 'always-multiline'],
         indent: [ 'error', 2],
         'linebreak-style': ['error', 'unix'],
-        quotes: ['error', 'single'],
+        quotes: ['error', 'double'],
         semi: ['error', 'always'],
         'no-unused-vars': ['warn'],
         'no-console': 0
