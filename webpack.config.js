@@ -1,23 +1,27 @@
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var HTMLWebpackPlugin = require('html-webpack-plugin');
-
-var config = {
-  entry: path.join(__dirname, 'app/index.js'),
+const config = {
+  entry: path.join(__dirname, 'app/index.jsx'),
   output: {
-    path: __dirname + '/dist', // `dist` is the destination
+    // `dist` is the destination
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
+  },
+  resolve: {
+    extensions: ['.jsx', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.js$/, //Check for all js files
+        test: /\.(js|jsx)$/, //Check for all js files
         use: 'babel-loader',
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
       },
       {
         test: /\.(css)$/, //Check for sass or scss file names
@@ -36,23 +40,24 @@ var config = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       filename: 'vendor-[hash].min.js',
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime',
+      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1,
     }),
     new ExtractTextPlugin('styles.css'),
-    new webpack.IgnorePlugin(/^\.\/locale$/,/moment$/),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     //compile time plugins
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV' :'"development"',
+      'process.env.NODE_ENV': '"development"',
     }),
     //webpack-dev-server enhancement plugins
     new DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+    }),
   ],
   //To run development server
   devServer: {
-    contentBase: __dirname + '/dist',
+    contentBase: `${__dirname}/dist`,
   },
 
   devtool: 'eval-source-map', // Default development sourcemap
