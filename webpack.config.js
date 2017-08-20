@@ -28,6 +28,7 @@ const config = {
         use: [
           'style-loader',
           'css-loader',
+          'sass-loader',
         ],
       },
     ],
@@ -57,7 +58,10 @@ const config = {
   ],
   //To run development server
   devServer: {
-    contentBase: `${__dirname}/dist`,
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+    hot: true,
   },
 
   devtool: 'eval-source-map', // Default development sourcemap

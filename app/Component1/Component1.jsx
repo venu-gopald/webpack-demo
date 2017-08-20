@@ -11,11 +11,10 @@ class Component1 extends Component {
   render() {
     return (
       <div>
-        <Grid>
+        <Grid fluid>
           <Row className="show-grid">
             <Col md={3} sm={6} />
           </Row>
-
         </Grid>
       </div>
     );

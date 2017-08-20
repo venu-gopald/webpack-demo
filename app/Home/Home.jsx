@@ -1,6 +1,7 @@
-import { PropTypes } from 'prop-types';
+//import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
 import Header from './../Common/Header';
+import Routes from './../routes';
 
 class Home extends Component {
   constructor(props) {
@@ -12,18 +13,18 @@ class Home extends Component {
     return (
       <div className="container">
         <Header />
-        {this.props.children}
+        <Routes />
       </div>
     );
   }
 }
 
-Home.propTypes = {
-  children: PropTypes.node,
-};
+// Home.propTypes = {
+//   children: PropTypes.node,
+// };
 
-Home.defaultProps = {
-  children: '',
-};
+// Home.defaultProps = {
+//   children: '',
+// };
 
 export default Home;
