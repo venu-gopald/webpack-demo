@@ -1,15 +1,29 @@
-import React, { PropTypes } from 'prop-types';
+import { PropTypes } from 'prop-types';
+import React, { Component } from 'react';
 import Header from './../Common/Header';
 
-function Home() {
-  return (
-    <div className="container">
-      <Header />
-      {this.props.children}
-    </div>
-  );
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+  render() {
+    return (
+      <div className="container">
+        <Header />
+        {this.props.children}
+      </div>
+    );
+  }
 }
-Home.PropTypes = {
-  children: PropTypes.object,
+
+Home.propTypes = {
+  children: PropTypes.node,
 };
+
+Home.defaultProps = {
+  children: '',
+};
+
 export default Home;
