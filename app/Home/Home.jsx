@@ -1,7 +1,10 @@
 //import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
-import Header from './../Common/Header';
-import Routes from './../routes';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Component1 from './../Component1/Component1';
+//import Header from './../Common/Header';
+
+//import Routes from './../routes';
 
 class Home extends Component {
   constructor(props) {
@@ -11,9 +14,13 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Routes />
+      <div>
+
+        <div>
+          <Router>
+            <Route path="/" component={Component1} />
+          </Router>
+        </div>
       </div>
     );
   }

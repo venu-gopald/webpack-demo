@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
+//const DashboardPlugin = require('webpack-dashboard/plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   entry: path.join(__dirname, 'app/index.jsx'),
@@ -12,6 +12,7 @@ const config = {
     // `dist` is the destination
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.jsx', '.js'],
@@ -31,12 +32,28 @@ const config = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.html$/,
+        use: [
+          'html-loader',
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HTMLWebpackPlugin({
-      title: 'Caching',
+      template: 'app/index.html',
+      inject: 'body',
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -50,11 +67,11 @@ const config = {
       'process.env.NODE_ENV': '"development"',
     }),
     //webpack-dev-server enhancement plugins
-    new DashboardPlugin(),
+    //ew DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    // }),
   ],
   //To run development server
   devServer: {
@@ -62,9 +79,13 @@ const config = {
     compress: true,
     port: 9000,
     hot: true,
+    inline: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   },
 
-  devtool: 'eval-source-map', // Default development sourcemap
+  devtool: 'cheap-module-eval-source-map', // Default development sourcemap
 };
 
 module.exports = config;

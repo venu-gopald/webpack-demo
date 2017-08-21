@@ -1,24 +1,8 @@
-import React, { Component, Row, Col } from 'react';
-import { Grid } from 'react-bootstrap';
+import React from 'react';
 
-class Component1 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFetching: false,
-    };
-  }
-  render() {
-    return (
-      <div>
-        <Grid fluid>
-          <Row className="show-grid">
-            <Col md={3} sm={6} />
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
-}
+const Component1 = () => (
+  <h1> Hello World</h1>
+);
 
 export default Component1;
+
