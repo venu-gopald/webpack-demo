@@ -6,6 +6,8 @@
   "scripts": {
     "build": "webpack-dev-server --env production",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dist": "webpack --env=prod --progress --profile --colors",
     "lint:js": "eslint app/ webpack.*.js --cache",
     "precommit": "npm test",
     "prepush": "npm test"

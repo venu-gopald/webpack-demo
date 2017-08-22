@@ -75,7 +75,7 @@ const config = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // compile time plugins
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
     // webpack-dev-server enhancement plugins
     // new DashboardPlugin(),
