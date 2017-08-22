@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-//const DashboardPlugin = require('webpack-dashboard/plugin');
+// const DashboardPlugin = require('webpack-dashboard/plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   entry: path.join(__dirname, 'app/index.jsx'),
@@ -20,17 +20,24 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/, //Check for all js files
+        test: /\.(js|jsx)$/, // Check for all js files
         use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
-        test: /\.(css)$/, //Check for sass or scss file names
+        test: /\.(css)$/, // Check for sass or scss file names
         use: [
           'style-loader',
           'css-loader',
-          'sass-loader',
         ],
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          // resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
       {
         test: /\.html$/,
@@ -47,6 +54,10 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.txt$/,
+        use: 'raw-loader',
+      },
     ],
   },
   plugins: [
@@ -62,18 +73,18 @@ const config = {
     }),
     new ExtractTextPlugin('styles.css'),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    //compile time plugins
+    // compile time plugins
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',
     }),
-    //webpack-dev-server enhancement plugins
-    //ew DashboardPlugin(),
+    // webpack-dev-server enhancement plugins
+    // new DashboardPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     // new BundleAnalyzerPlugin({
     //   analyzerMode: 'static',
     // }),
   ],
-  //To run development server
+  // To run development server
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,

@@ -5,7 +5,7 @@ import Inbox from './Components/Inbox';
 import DisplayDate from './Components/DisplayDate';
 
 
-let routes = [
+const routesArr = [
   { path: '/',
     component: DisplayDate,
     exact: true,
@@ -29,7 +29,7 @@ let routes = [
 ];
 
 // Add unique keys to the array
-routes = keyIndex(routes, 1);
+const routes = keyIndex(routesArr, 1);
 
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work

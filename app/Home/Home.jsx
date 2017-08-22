@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { routes } from './../routes';
 import Sidebar from './../Common/Sidebar';
+import '../Styles/main.scss';
 
 const eachRoute = () => (
   routes.map(route => (
