@@ -52,6 +52,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "file-loader": "^0.11.2",
     "html-loader": "^0.5.1",
+    "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.2",
