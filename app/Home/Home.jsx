@@ -1,37 +1,25 @@
-// import { PropTypes } from 'prop-types';
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Component1 from './../Component1/Component1';
-// import Header from './../Common/Header';
-// import Sidebar from './../Common/Sidebar';
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { routes } from './../routes';
+import Sidebar from './../Common/Sidebar';
 
-// import Routes from './../routes';
-
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-    return (
-      <div>
-        <div>
-          <Router>
-            <Route path="/" component={Component1} />
-          </Router>
-        </div>
-      </div>
-    );
-  }
-}
-
-// Home.propTypes = {
-//   children: PropTypes.node,
-// };
-
-// Home.defaultProps = {
-//   children: '',
-// };
-
+const eachRoute = () => (
+  routes.map(route => (
+    <Route
+      key={route._pathId}
+      path={route.path}
+      exact={route.exact}
+      component={route.component}
+    />
+  ))
+);
+const Home = () => (
+  <div>
+    <h1>Webpack2 Demo with React and Redux</h1>
+    { Sidebar }
+    <div style={{ flex: 1, padding: '10px' }}>
+      { eachRoute() }
+    </div>
+  </div>
+);
 export default Home;

@@ -2,12 +2,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import keyIndex from 'react-key-index';
 import Inbox from './Components/Inbox';
-import Home from './Components/Home';
+import DisplayDate from './Components/DisplayDate';
 
 
 let routes = [
   { path: '/',
-    component: Home,
+    component: DisplayDate,
     exact: true,
 
   },
