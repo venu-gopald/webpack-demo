@@ -19,8 +19,10 @@
 
 // 4. Layout-related sections
 @import
+  'layout/container',
   'layout/header',
-  'layout/footer';
+  'layout/footer',
+  'layout/sidebar';
 
 // 5. Components
 @import

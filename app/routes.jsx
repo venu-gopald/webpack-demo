@@ -4,7 +4,6 @@ import keyIndex from 'react-key-index';
 import Inbox from './Components/Inbox';
 import DisplayDate from './Components/DisplayDate';
 
-
 const routesArr = [
   { path: '/',
     component: DisplayDate,

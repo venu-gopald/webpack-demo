@@ -1,0 +1,16 @@
+.maincontainer {
+    background-color: #e5e4d7;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 110%;
+    flex: 1 100%;
+    order: 2;
+}
+
+.topcontainer {
+    display: flex;
+}

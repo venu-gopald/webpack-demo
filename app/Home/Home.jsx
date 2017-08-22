@@ -2,6 +2,8 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { routes } from './../routes';
 import Sidebar from './../Common/Sidebar';
+import Header from './../Common/Header';
+import Footer from './../Common/Footer';
 import '../Styles/main.scss';
 
 const eachRoute = () => (
@@ -16,11 +18,16 @@ const eachRoute = () => (
 );
 const Home = () => (
   <div>
-    <h1>Webpack2 Demo with React and Redux</h1>
-    { Sidebar }
-    <div style={{ flex: 1, padding: '10px' }}>
-      { eachRoute() }
+    { Header }
+    <div className="topcontainer">
+      { Sidebar }
+      <div className="maincontainer">
+        { eachRoute() }
+      </div>
     </div>
+    { Footer }
   </div>
 );
 export default Home;
+
+// <h1>Webpack2 Demo with React and Redux</h1>

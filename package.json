@@ -7,7 +7,7 @@
     "build": "webpack-dev-server --env production",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build:dev": "webpack --env=dev --progress --profile --colors",
-    "build:dist": "webpack --env=prod --progress --profile --colors",
+    "build:dist": "webpack  --env=production --progress --profile --colors",
     "lint:js": "eslint app/ webpack.*.js --cache",
     "precommit": "npm test",
     "prepush": "npm test"
@@ -62,7 +62,9 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
+    "redux-saga": "^0.15.6",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.71.5",
     "styled-components": "^2.1.2"
   }
 }
